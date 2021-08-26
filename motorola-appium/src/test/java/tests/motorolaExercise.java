@@ -6,6 +6,7 @@ import java.net.URL;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -60,5 +61,11 @@ public class motorolaExercise {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@AfterTest
+	public void teardown()
+	{
+		caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 60);
 	}
 }
