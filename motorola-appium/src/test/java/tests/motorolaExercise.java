@@ -3,11 +3,14 @@ package tests;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.remote.MobileCapabilityType;
 
@@ -30,4 +33,32 @@ public class motorolaExercise {
 		driver = new AppiumDriver<MobileElement>(url, caps);
 
 	}	
+
+	@Test
+	public void test() throws InterruptedException
+	{
+		// To skip initial login stage
+		Thread.sleep(3000);
+		driver.findElement(By.id("com.amazon.mShop.android.shopping:id/skip_sign_in_button")).click();
+
+		//Scroll down to find 'All Departments' link
+		Thread.sleep(3000);
+		scrollByID("All Departments", 0);
+
+		//Click on 'All Departments' link
+		driver.findElement(By.xpath("//android.widget.ImageView[@index='0']")).click();
+		driver.findElement(By.id("com.amazon.mShop.android.shopping:id/drawer_item_title")).click();
+
+	}
+	//method to scroll down the current page
+	public void scrollByID(String Id, int index) {
+
+		try {
+
+			driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().resourceId(\""+Id+"\").instance("+index+"));")); 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
